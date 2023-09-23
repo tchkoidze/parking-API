@@ -6,7 +6,7 @@ export const signup = async (req, res) => {
   try {
     const resultQuery = await pool.query(
       "INSERT INTO users(firstName, lastName, email) VALUES($1, $2, $3)",
-      [firstMame, lastName, email]
+      [firstName, lastName, email]
     );
     const row = resultQuery.rows;
     return res.status(201).json(row);
