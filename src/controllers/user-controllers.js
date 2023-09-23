@@ -14,3 +14,13 @@ export const signup = async (req, res) => {
     return res.status(401).json(error);
   }
 };
+
+export const getAllUsers = async (_, response) => {
+  try {
+    const resultQuery = await pool.query("SELECT * FROM users");
+    const rows = resultQuery.rows;
+    return response.status(200).json(rows);
+  } catch (error) {
+    return response.status(401).json(error);
+  }
+};
