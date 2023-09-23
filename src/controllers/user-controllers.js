@@ -1,7 +1,21 @@
+import userRegistrationSchema from "../Schemas/user-registration-schema.js";
 import pool from "../config/sql.js";
 
 export const signup = async (req, res) => {
-  const { firstName, lastName, email } = req.body;
+  //const { firstName, lastName, email } = req.body;
+  const { body } = req;
+
+  const validator = await userRegistrationSchema(body);
+
+  const { value: data, error } = validator.validate(body);
+
+  if (error) {
+    // Log the validation error details
+    console.log("Validation Error:", error.details);
+    return res.status(422).json(error.details);
+  }
+
+  const { firstName, lastName, email } = data;
 
   try {
     const resultQuery = await pool.query(
