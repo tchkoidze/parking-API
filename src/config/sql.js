@@ -3,14 +3,14 @@ const { Pool } = pgk;
 
 const pool = new Pool({
   //host: "dpg-ck7ai4fsasqs73a1rkr0-a",
-  host: "dpg-ck84njvsasqs73bp3pgg-a",
+  host: "dpg-ck84vmfq54js73anapc0-a",
   port: 5432,
   //database: "parking_tz9v",
-  database: "parking_sql",
+  database: "parking_sql_66tz",
   //user: "parking_tz9v_user",
-  user: "parking_sql_user",
+  user: "parking_sql_66tz_user",
   //password: "KiQ0S15Wfmw789wWVdsC5yuLI0sTn31Z",
-  password: "JcshoqBKlvyyovLGVEOp5LSkrpf48eXg",
+  password: "ZYaCb5VwD4WELgTcCOmh2wdI8WFWXNQE",
 });
 
 export const createUserTable = async () => {
