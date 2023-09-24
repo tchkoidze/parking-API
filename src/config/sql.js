@@ -15,4 +15,11 @@ export const createUserTable = async () => {
   );
 };
 
+// Create the 'verifications' table if it doesn't exist
+export const createVerificationsTable = async () => {
+  return await pool.query(
+    "CREATE TABLE IF NOT EXISTS verifications(id SERIAL PRIMARY KEY, hash TEXT, email TEXT)"
+  );
+};
+
 export default pool;
