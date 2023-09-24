@@ -15,12 +15,12 @@ export const signup = async (req, res) => {
     return res.status(422).json(error.details);
   }
 
-  const { firstName, lastName, email } = data;
+  const { firstName, lastName, email, password } = data;
 
   try {
     const resultQuery = await pool.query(
-      "INSERT INTO users(firstName, lastName, email) VALUES($1, $2, $3)",
-      [firstName, lastName, email]
+      "INSERT INTO users(firstName, lastName, email, password) VALUES($1, $2, $3, $4)",
+      [firstName, lastName, email, password]
     );
     const row = resultQuery.rows;
     return res.status(201).json(row);

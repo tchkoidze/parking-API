@@ -20,6 +20,18 @@ const userRegistrationSchema = async () => {
         "string.email": "email should be a valid email address",
         "any.required": "email is required",
       }),
+    password: Joi.string()
+      .min(8)
+      .pattern(/^(?=.*[A-Z])(?=.*[a-zA-Z0-9!,-_.]).*$/)
+      .custom(chekIfUserExists(finedUser))
+      .required()
+      .messages({
+        "string.base": "password should be a string",
+        "string.min": "password should consist of minimum 8 characters",
+        "string.pattern":
+          "password must start with a capital letter and can contain letters, digits, and characters like !, -, _, and .",
+        "string.required": "password isrequired",
+      }),
   });
 };
 
