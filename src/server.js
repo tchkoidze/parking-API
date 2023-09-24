@@ -1,5 +1,5 @@
 import express, { request, response } from "express";
-import { createUserTable } from "./config/sql.js";
+import { createUserTable, createVerificationsTable } from "./config/sql.js";
 import bodyParser from "body-parser";
 import cors from "cors";
 import userRouter from "./routes/user-rotes.js";
@@ -9,6 +9,7 @@ const app = express();
 async function init() {
   try {
     await createUserTable();
+    await createVerificationsTable();
     serverStart();
   } catch (error) {
     console.log(error);

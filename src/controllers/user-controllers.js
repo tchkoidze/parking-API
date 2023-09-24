@@ -1,5 +1,7 @@
 import userRegistrationSchema from "../Schemas/user-registration-schema.js";
 import pool from "../config/sql.js";
+import crypto from "crypto";
+import bcrypt from "bcrypt";
 
 export const signup = async (req, res) => {
   //const { firstName, lastName, email } = req.body;
@@ -16,6 +18,16 @@ export const signup = async (req, res) => {
   }
 
   const { firstName, lastName, email, password } = data;
+
+  const user = await pool.query(`SELECT * FROM users WHERE email = $1`, [
+    email,
+  ]);
+
+  if (!user) {
+    const salt = 10;
+
+    const hashedPassword = await bcrypt.hash(password, salt);
+  }
 
   try {
     const resultQuery = await pool.query(
