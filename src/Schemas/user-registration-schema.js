@@ -20,7 +20,7 @@ const userRegistrationSchema = async () => {
         "string.email": "email should be a valid email address",
         "any.required": "email is required",
       }),
-    passwords: Joi.string()
+    password: Joi.string()
       .min(8)
       .pattern(/^(?=.*[A-Z])(?=.*[a-zA-Z0-9!,-_.]).*$/)
       .required()
