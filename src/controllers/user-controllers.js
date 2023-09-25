@@ -81,6 +81,7 @@ export const signup = async (req, res) => {
   } catch (error) {
     return res.status(401).json(error);
   }*/
+
 };
 
 export const login = async (req, res) => {
@@ -109,6 +110,7 @@ export const login = async (req, res) => {
   } catch (error) {
     return res.status(401).json(error);
   }
+
 };
 
 // Endpoint to simulate email verification

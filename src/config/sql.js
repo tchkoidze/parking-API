@@ -2,20 +2,20 @@ import pgk from "pg";
 const { Pool } = pgk;
 
 const pool = new Pool({
-  //host: "dpg-ck7ai4fsasqs73a1rkr0-a",
-  host: "dpg-ck84vmfq54js73anapc0-a",
+  host: "dpg-ck8ruc7q54js73drt0qg-a",
+  //host: "dpg-ck84vmfq54js73anapc0-a",
   port: 5432,
-  //database: "parking_tz9v",
-  database: "parking_sql_66tz",
-  //user: "parking_tz9v_user",
-  user: "parking_sql_66tz_user",
-  //password: "KiQ0S15Wfmw789wWVdsC5yuLI0sTn31Z",
-  password: "ZYaCb5VwD4WELgTcCOmh2wdI8WFWXNQE",
+  database: "parking_akuj",
+  //database: "parking_sql_66tz",
+  user: "parking_akuj_user",
+  //user: "parking_sql_66tz_user",
+  password: "1N6727ekU4HvUFwP2TZXeH6tTX7qDVCV",
+  //password: "ZYaCb5VwD4WELgTcCOmh2wdI8WFWXNQE",
 });
 
 export const createUserTable = async () => {
   return await pool.query(
-    "CREATE TABLE IF NOT EXISTS users(id SERIAL PRIMARY KEY, firstName TEXT, lastName TEXT, email TEXT, password TEXT)"
+    "CREATE TABLE IF NOT EXISTS users(id SERIAL PRIMARY KEY, firstName TEXT, lastName TEXT, email TEXT, password TEXT, balance DECIMAL(18, 2) DEFAULT 100, verify BOOLEAN DEFAULT FALSE)"
   );
 };
 
