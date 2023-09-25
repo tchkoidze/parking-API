@@ -17,7 +17,7 @@ export const signup = async (req, res) => {
 
   const { firstName, lastName, email, password } = data;
 
-  try {
+  /*try {
     const resultQuery = await pool.query(
       "INSERT INTO users(firstName, lastName, email, password) VALUES($1, $2, $3, $4)",
       [firstName, lastName, email, password]
@@ -26,7 +26,7 @@ export const signup = async (req, res) => {
     return res.status(201).json(row);
   } catch (error) {
     return res.status(401).json(error);
-  }
+  }*/
 };
 
 export const getAllUsers = async (_, response) => {
