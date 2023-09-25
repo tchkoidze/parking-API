@@ -15,7 +15,7 @@ const pool = new Pool({
 
 export const createUserTable = async () => {
   return await pool.query(
-    "CREATE TABLE IF NOT EXISTS users(id SERIAL PRIMARY KEY, firstName TEXT, lastName TEXT, email TEXT, password TEXT)"
+    "CREATE TABLE IF NOT EXISTS users(id SERIAL PRIMARY KEY, firstName TEXT, lastName TEXT, email TEXT, password TEXT, balance DECIMAL(18, 2) DEFAULT 100, verify BOOLEAN DEFAULT FALSE)"
   );
 };
 
