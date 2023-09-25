@@ -19,17 +19,58 @@ export const signup = async (req, res) => {
 
   const { firstName, lastName, email, password } = data;
 
-  const user = await pool.query(`SELECT * FROM users WHERE email = $1`, [
+  /*const user = await pool.query(`SELECT * FROM users WHERE email = $1`, [
     email,
-  ]);
+  ]);*/
 
-  if (!user) {
+  try {
+    const user = await pool.query(`SELECT * FROM users WHERE email = $1`, [
+      email,
+    ]);
+
+    if (user.rows.length > 0) {
+      return res.status(409).json({ message: "User already exists" });
+    }
+
+    const verificationHash = crypto.randomBytes(48).toString("hex");
+
+    const salt = 10;
+    // Hash the user's password before storing it in the database
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    //const verificationQuery =
+    await pool.query("INSERT INTO verifications(hash, email) VALUES($1, $2) ", [
+      verificationHash,
+      email,
+    ]);
+
+    // Simulate sending an email by logging the token and email
+    console.log(
+      `Simulated email sent to ${email}. Verification Token: ${verificationHash}`
+    );
+
+    await pool.query(
+      "INSERT INTO users(firstName, lastName, email, password) VALUES($1, $2, $3, $4)",
+      [firstName, lastName, email, password]
+    );
+    return res
+      .status(201)
+      .json({ message: "user signed up. Verification token sent." });
+  } catch (error) {
+    return res.status(401).json(error);
+  }
+
+  /*if (!user) {
     const salt = 10;
 
     const hashedPassword = await bcrypt.hash(password, salt);
-  }
+    const verificationQuery = await pool.query(
+      "INSERT INTO verifications(hash, email) VALUES($1, $2) ",
+      [hash, email]
+    );
+  }*/
 
-  try {
+  /*try {
     const resultQuery = await pool.query(
       "INSERT INTO users(firstName, lastName, email, password) VALUES($1, $2, $3, $4)",
       [firstName, lastName, email, password]
@@ -38,6 +79,25 @@ export const signup = async (req, res) => {
     return res.status(201).json(row);
   } catch (error) {
     return res.status(401).json(error);
+  }*/
+};
+
+// Endpoint to simulate email verification
+export const emailVerification = async (req, res) => {
+  const { email, token } = req.body;
+  if (email & token) {
+    const verifiedEmail = await pool.query(
+      `SELECT * FROM verifications WHERE email = $1`,
+      [email]
+    );
+
+    if (verifiedEmail.rows[0].hash === token) {
+      return res.status(200).json({ message: "Email verified successfully." });
+    } else {
+      return res.status(400).json({ message: "Invalid verification token." });
+    }
+  } else {
+    return res.status(400).json({ message: "Invalid request." });
   }
 };
 
