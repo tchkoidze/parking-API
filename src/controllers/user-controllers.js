@@ -2,6 +2,7 @@ import userRegistrationSchema from "../Schemas/user-registration-schema.js";
 import pool from "../config/sql.js";
 import crypto from "crypto";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 export const signup = async (req, res) => {
   //const { firstName, lastName, email } = req.body;
@@ -83,6 +84,36 @@ export const signup = async (req, res) => {
   } catch (error) {
     return res.status(401).json(error);
   }*/
+
+};
+
+export const login = async (req, res) => {
+  const { body } = req;
+
+  try {
+    const user = await pool.query(
+      "SELECT * FROM users WHERE email = $1 AND verify=$2",
+      [body.email, true]
+    );
+
+    //!user
+    if (user.rows.length > 0) {
+      return res.status(401).json({ message: "Incorrect email or password." });
+    }
+
+    const isMatch = await bcrypt.compare(body.password, user.rows[0].password);
+
+    if ((body.email === user.rows[0].email) & isMatch) {
+      const token = jwt.sign(user.rows[0].email, process.env.JWT_SECRET);
+
+      return res.status(200).json({ message: "Login successful!", token });
+    } else {
+      return res.status(402).json({ message: "Incorrect email or password." });
+    }
+  } catch (error) {
+    return res.status(401).json(error);
+  }
+
 };
 
 // Endpoint to simulate email verification
