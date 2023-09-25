@@ -92,7 +92,8 @@ export const login = async (req, res) => {
       [body.email, true]
     );
 
-    if (!user) {
+    //!user
+    if (user.rows.length > 0) {
       return res.status(401).json({ message: "Incorrect email or password." });
     }
 
@@ -100,9 +101,14 @@ export const login = async (req, res) => {
 
     if ((body.email === user.rows[0].email) & isMatch) {
       const token = jwt.sign(user.rows[0].email, process.env.JWT_SECRET);
+
+      return res.status(200).json({ message: "Login successful!", token });
     } else {
+      return res.status(402).json({ message: "Incorrect email or password." });
     }
-  } catch (error) {}
+  } catch (error) {
+    return res.status(401).json(error);
+  }
 };
 
 // Endpoint to simulate email verification
