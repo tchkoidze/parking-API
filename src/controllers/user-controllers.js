@@ -55,7 +55,10 @@ export const signup = async (req, res) => {
     );
     return res
       .status(201)
-      .json({ message: "user signed up. Verification token sent." });
+      .json({
+        message: "user signed up. Verification token sent.",
+        verificationHash,
+      });
   } catch (error) {
     return res.status(401).json(error);
   }
