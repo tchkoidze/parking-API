@@ -23,7 +23,6 @@ const userRegistrationSchema = async () => {
     password: Joi.string()
       .min(8)
       .pattern(/^(?=.*[A-Z])(?=.*[a-zA-Z0-9!,-_.]).*$/)
-      .custom(chekIfUserExists(finedUser))
       .required()
       .messages({
         "string.base": "password should be a string",
