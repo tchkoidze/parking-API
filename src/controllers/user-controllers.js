@@ -19,7 +19,6 @@ export const signup = async (req, res) => {
 
   const { firstName, lastName, email, password } = data;
 
-
   /*const user = await pool.query(`SELECT * FROM users WHERE email = $1`, [
     email,
   ]);*/
@@ -52,7 +51,7 @@ export const signup = async (req, res) => {
 
     await pool.query(
       "INSERT INTO users(firstName, lastName, email, password) VALUES($1, $2, $3, $4)",
-      [firstName, lastName, email, password]
+      [firstName, lastName, email, hashedPassword]
     );
     return res
       .status(201)
@@ -71,7 +70,6 @@ export const signup = async (req, res) => {
     );
   }*/
 
-
   /*try {
     const resultQuery = await pool.query(
       "INSERT INTO users(firstName, lastName, email, password) VALUES($1, $2, $3, $4)",
@@ -82,7 +80,6 @@ export const signup = async (req, res) => {
   } catch (error) {
     return res.status(401).json(error);
   }*/
-
 };
 
 // Endpoint to simulate email verification
@@ -102,7 +99,6 @@ export const emailVerification = async (req, res) => {
   } else {
     return res.status(400).json({ message: "Invalid request." });
   }
-
 };
 
 export const getAllUsers = async (_, response) => {
