@@ -2,6 +2,7 @@ import userRegistrationSchema from "../Schemas/user-registration-schema.js";
 import pool from "../config/sql.js";
 import crypto from "crypto";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 export const signup = async (req, res) => {
   //const { firstName, lastName, email } = req.body;
@@ -18,7 +19,6 @@ export const signup = async (req, res) => {
   }
 
   const { firstName, lastName, email, password } = data;
-
 
   /*const user = await pool.query(`SELECT * FROM users WHERE email = $1`, [
     email,
@@ -52,7 +52,7 @@ export const signup = async (req, res) => {
 
     await pool.query(
       "INSERT INTO users(firstName, lastName, email, password) VALUES($1, $2, $3, $4)",
-      [firstName, lastName, email, password]
+      [firstName, lastName, email, hashedPassword]
     );
     return res
       .status(201)
@@ -71,7 +71,6 @@ export const signup = async (req, res) => {
     );
   }*/
 
-
   /*try {
     const resultQuery = await pool.query(
       "INSERT INTO users(firstName, lastName, email, password) VALUES($1, $2, $3, $4)",
@@ -82,7 +81,28 @@ export const signup = async (req, res) => {
   } catch (error) {
     return res.status(401).json(error);
   }*/
+};
 
+export const login = async (req, res) => {
+  const { body } = req;
+
+  try {
+    const user = await pool.query(
+      "SELECT * FROM users WHERE email = $1 AND verify=$2",
+      [body.email, true]
+    );
+
+    if (!user) {
+      return res.status(401).json({ message: "Incorrect email or password." });
+    }
+
+    const isMatch = await bcrypt.compare(body.password, user.rows[0].password);
+
+    if ((body.email === user.rows[0].email) & isMatch) {
+      const token = jwt.sign(user.rows[0].email, process.env.JWT_SECRET);
+    } else {
+    }
+  } catch (error) {}
 };
 
 // Endpoint to simulate email verification
@@ -102,7 +122,6 @@ export const emailVerification = async (req, res) => {
   } else {
     return res.status(400).json({ message: "Invalid request." });
   }
-
 };
 
 export const getAllUsers = async (_, response) => {
