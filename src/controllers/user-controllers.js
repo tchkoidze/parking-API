@@ -115,7 +115,7 @@ export const login = async (req, res) => {
 // Endpoint to simulate email verification
 export const emailVerification = async (req, res) => {
   const { email, hash } = req.body;
-  if (email & hash) {
+  if (email && hash) {
     const verifiedEmail = await pool.query(
       `SELECT * FROM verifications WHERE email = $1`,
       [email]
