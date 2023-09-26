@@ -99,7 +99,7 @@ export const login = async (req, res) => {
         .status(401)
         .json({ message: "Incorrect email or password. :)" });
     }
-
+    console.log("data:", body.email, body.password);
     const isMatch = await bcrypt.compare(body.password, user.rows[0].password);
 
     if (body.email === user.rows[0].email && isMatch) {
