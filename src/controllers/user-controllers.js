@@ -114,14 +114,14 @@ export const login = async (req, res) => {
 
 // Endpoint to simulate email verification
 export const emailVerification = async (req, res) => {
-  const { email, token } = req.body;
-  if (email & token) {
+  const { email, hash } = req.body;
+  if (email & hash) {
     const verifiedEmail = await pool.query(
       `SELECT * FROM verifications WHERE email = $1`,
       [email]
     );
 
-    if (verifiedEmail.rows[0].hash === token) {
+    if (verifiedEmail.rows[0].hash === hash) {
       return res.status(200).json({ message: "Email verified successfully." });
       //verify user
       await pool.query("INSERT INTO users(verify) VALUES($1) ", [true]);
