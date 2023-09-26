@@ -109,10 +109,11 @@ export const login = async (req, res) => {
       const payload = {
         email: user.rows[0].email, // Include relevant data here
       };
-      const token = jwt.sign(payload, process.env.JWT_SECRET);
+      //const token = jwt.sign(payload, process.env.JWT_SECRET);
       console.log("data is correct:", body.email, body.password);
+      console.log("payload:", payload);
 
-      return res.status(200).json({ message: "Login successful!", token });
+      return res.status(200).json({ message: "Login successful!" });
     } else {
       return res.status(402).json({ message: "Incorrect email or password." });
     }
