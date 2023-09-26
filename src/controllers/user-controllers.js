@@ -105,7 +105,7 @@ export const login = async (req, res) => {
     const isMatch = await bcrypt.compare(body.password, user.rows[0].password);
     console.log("isMatch:", isMatch);
 
-    if (body.email === user.rows[0].email && isMatch) {
+    if (isMatch) {
       const token = jwt.sign(user.rows[0].email, process.env.JWT_SECRET);
       console.log("data is correct:", body.email, body.password);
 
