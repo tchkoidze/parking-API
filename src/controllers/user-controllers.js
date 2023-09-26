@@ -106,10 +106,13 @@ export const login = async (req, res) => {
     console.log("isMatch:", isMatch);
 
     if (isMatch) {
-      //const token = jwt.sign(user.rows[0].email, process.env.JWT_SECRET);
+      const payload = {
+        email: user.rows[0].email, // Include relevant data here
+      };
+      const token = jwt.sign(payload, process.env.JWT_SECRET);
       console.log("data is correct:", body.email, body.password);
 
-      return res.status(200).json({ message: "Login successful!" });
+      return res.status(200).json({ message: "Login successful!", token });
     } else {
       return res.status(402).json({ message: "Incorrect email or password." });
     }
