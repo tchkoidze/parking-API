@@ -123,7 +123,12 @@ export const emailVerification = async (req, res) => {
 
     if (verifiedEmail.rows[0].hash === hash) {
       //verify user
-      await pool.query("INSERT INTO users(verify) VALUES($1) ", [true]);
+      //await pool.query("INSERT INTO users(verify) VALUES($1) ", [true]);
+      // Update the 'verify' column to true for the matching email
+      await pool.query("UPDATE users SET verify = $1 WHERE email = $2", [
+        true,
+        email,
+      ]);
       return res.status(200).json({ message: "Email verified successfully." });
     } else {
       return res.status(400).json({ message: "Invalid verification token." });
