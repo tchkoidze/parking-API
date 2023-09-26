@@ -100,7 +100,10 @@ export const login = async (req, res) => {
         .json({ message: "Incorrect email or password. :)" });
     }
     console.log("data:", body.email, body.password);
+    console.log("database email:", user.rows[0].password);
+
     const isMatch = await bcrypt.compare(body.password, user.rows[0].password);
+    console.log("isMatch:", isMatch);
 
     if (body.email === user.rows[0].email && isMatch) {
       const token = jwt.sign(user.rows[0].email, process.env.JWT_SECRET);
