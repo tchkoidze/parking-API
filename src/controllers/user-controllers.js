@@ -94,7 +94,7 @@ export const login = async (req, res) => {
     );
 
     //!user
-    if (user.rows.length > 0) {
+    if (user.rows.length < 0) {
       return res.status(401).json({ message: "Incorrect email or password." });
     }
 
