@@ -54,12 +54,10 @@ export const signup = async (req, res) => {
       "INSERT INTO users(firstName, lastName, email, password) VALUES($1, $2, $3, $4)",
       [firstName, lastName, email, hashedPassword]
     );
-    return res
-      .status(201)
-      .json({
-        message: "user signed up. Verification token sent.",
-        verificationHash,
-      });
+    return res.status(201).json({
+      message: "user signed up. Verification token sent.",
+      verificationHash,
+    });
   } catch (error) {
     return res.status(401).json(error);
   }
@@ -84,7 +82,6 @@ export const signup = async (req, res) => {
   } catch (error) {
     return res.status(401).json(error);
   }*/
-
 };
 
 export const login = async (req, res) => {
@@ -113,7 +110,6 @@ export const login = async (req, res) => {
   } catch (error) {
     return res.status(401).json(error);
   }
-
 };
 
 // Endpoint to simulate email verification
@@ -127,6 +123,8 @@ export const emailVerification = async (req, res) => {
 
     if (verifiedEmail.rows[0].hash === token) {
       return res.status(200).json({ message: "Email verified successfully." });
+      //verify user
+      await pool.query("INSERT INTO users(verify) VALUES($1) ", [true]);
     } else {
       return res.status(400).json({ message: "Invalid verification token." });
     }
