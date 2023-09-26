@@ -104,6 +104,7 @@ export const login = async (req, res) => {
 
     if (body.email === user.rows[0].email && isMatch) {
       const token = jwt.sign(user.rows[0].email, process.env.JWT_SECRET);
+      console.log("data is correct:", body.email, body.password);
 
       return res.status(200).json({ message: "Login successful!", token });
     } else {
