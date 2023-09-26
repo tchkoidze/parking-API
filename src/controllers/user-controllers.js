@@ -94,8 +94,10 @@ export const login = async (req, res) => {
     );
 
     //!user
-    if (user.rows.length < 0) {
-      return res.status(401).json({ message: "Incorrect email or password." });
+    if (user.rows.length === 0) {
+      return res
+        .status(401)
+        .json({ message: "Incorrect email or password. :)" });
     }
 
     const isMatch = await bcrypt.compare(body.password, user.rows[0].password);
