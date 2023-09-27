@@ -63,27 +63,6 @@ export const signup = async (req, res) => {
   } catch (error) {
     return res.status(401).json(error);
   }
-
-  /*if (!user) {
-    const salt = 10;
-
-    const hashedPassword = await bcrypt.hash(password, salt);
-    const verificationQuery = await pool.query(
-      "INSERT INTO verifications(hash, email) VALUES($1, $2) ",
-      [hash, email]
-    );
-  }*/
-
-  /*try {
-    const resultQuery = await pool.query(
-      "INSERT INTO users(firstName, lastName, email, password) VALUES($1, $2, $3, $4)",
-      [firstName, lastName, email, password]
-    );
-    const row = resultQuery.rows;
-    return res.status(201).json(row);
-  } catch (error) {
-    return res.status(401).json(error);
-  }*/
 };
 
 export const login = async (req, res) => {
