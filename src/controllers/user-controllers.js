@@ -114,8 +114,6 @@ export const emailVerification = async (req, res) => {
     );
 
     if (verifiedEmail.rows[0].hash === hash) {
-      //verify user
-      //await pool.query("INSERT INTO users(verify) VALUES($1) ", [true]);
       // Update the 'verify' column to true for the matching email
       await pool.query("UPDATE users SET verify = $1 WHERE email = $2", [
         true,
@@ -156,7 +154,7 @@ export const passwordRecovery = async (req, res) => {
   //const { email } = req.body;
   const { body } = req;
   const validator = await passwordRecoverySchema(body);
-  const { email } = await validator.validate(body);
+  const { email } = await validator.validateAsync(body);
 
   const user = await pool.query(`SELECT * FROM users WHERE email = $1`, [
     email,
