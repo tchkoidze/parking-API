@@ -29,7 +29,7 @@ export const createVerificationsTable = async () => {
 // Create the 'recovery' table if it doesn't exist
 export const createPasswordRecoveryTable = async () => {
   return await pool.query(
-    "CREATE TABLE IF NOT EXISTS passwordRecoveys(id SERIAL PRIMARY KEY, recoveryToken TEXT, email TEXT)"
+    "CREATE TABLE IF NOT EXISTS passwordRecoverys(id SERIAL PRIMARY KEY, recoveryToken TEXT, email TEXT)"
   );
 };
 

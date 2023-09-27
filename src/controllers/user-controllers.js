@@ -171,7 +171,7 @@ export const passwordRecovery = async (req, res) => {
 
   // Store the reset token in the database along with the email
   await pool.query(
-    "INSERT INTO passwordRecoveys(recoveryToken, email) VALUES($1, $2) ",
+    "INSERT INTO passwordRecoverys(recoveryToken, email) VALUES($1, $2) ",
     [recoveryToken, email]
   );
 
@@ -195,7 +195,7 @@ export const passwordReset = async (req, res) => {
     const { password, recoveryToken } = await validator.validateAsync(body);
 
     const resetDocument = await pool.query(
-      `SELECT * FROM passwordRecoveys WHERE email = $1`,
+      `SELECT * FROM passwordRecoverys WHERE email = $1`,
       [recoveryToken]
     );
 
