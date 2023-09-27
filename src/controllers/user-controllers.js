@@ -245,6 +245,11 @@ export const passwordReset = async (req, res) => {
       hashedPassword,
       resetDocument.rows[0].email,
     ]);
+
+    await pool.query("DELETE FROM passwordRecoverys WHERE recoveryToken = $1", [
+      recoveryToken,
+    ]);
+
     return res.status(200).json({ message: "Password updated successfully" });
   } catch (error) {
     return res.status(401).json(error);
