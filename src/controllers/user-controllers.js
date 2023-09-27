@@ -159,7 +159,7 @@ export const passwordRecovery = async (req, res) => {
   const user = await pool.query(`SELECT * FROM users WHERE email = $1`, [
     email,
   ]);
-
+  console.log("user:", email);
   if (user.rows.length === 0) {
     return res
       .status(400)
