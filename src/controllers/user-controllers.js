@@ -195,7 +195,7 @@ export const passwordReset = async (req, res) => {
     const { password, recoveryToken } = await validator.validateAsync(body);
 
     const resetDocument = await pool.query(
-      `SELECT * FROM passwordRecoverys WHERE email = $1`,
+      `SELECT * FROM passwordRecoverys WHERE recoveryToken = $1`,
       [recoveryToken]
     );
 
