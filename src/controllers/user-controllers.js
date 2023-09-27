@@ -177,12 +177,12 @@ export const passwordRecovery = async (req, res) => {
 
   // Log the simulated email sending
   console.log(
-    `Simulated password reset email sent to ${email} with token: ${resetToken}`
+    `Simulated password reset email sent to ${email} with token: ${recoveryToken}`
   );
 
   return res
     .status(200)
-    .json({ message: "Password reset email sent.", resetToken });
+    .json({ message: "Password reset email sent.", recoveryToken });
 };
 
 // Endpoint to simulate resetting the password
