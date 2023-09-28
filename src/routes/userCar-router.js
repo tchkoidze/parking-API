@@ -10,6 +10,6 @@ const userCarRouter = express.Router();
 
 userCarRouter.post("/usercar/:userId", authMiddleware, addCar);
 userCarRouter.put("/usercar/:userId", authMiddleware, updateCar);
-userCarRouter.get("/usercars", authMiddleware, getUserCars);
+userCarRouter.get("/usercars/:userId", authMiddleware, getUserCars);
 
 export default userCarRouter;
