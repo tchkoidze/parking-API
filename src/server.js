@@ -1,5 +1,6 @@
 import express, { request, response } from "express";
 import {
+  createParkinZoneTable,
   createPasswordRecoveryTable,
   createUserCarTable,
   createUserTable,
@@ -9,6 +10,7 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import userRouter from "./routes/user-rotes.js";
 import userCarRouter from "./routes/userCar-router.js";
+import parkingZoneRouter from "./routes/parkingZone-router.js";
 
 const app = express();
 
@@ -18,6 +20,7 @@ async function init() {
     await createVerificationsTable();
     await createPasswordRecoveryTable();
     await createUserCarTable();
+    await createParkinZoneTable();
     serverStart();
   } catch (error) {
     console.log(error);
@@ -28,6 +31,8 @@ async function init() {
     app.use(cors());
     app.use("/api", userRouter);
     app.use("/api", userCarRouter);
+    app.use("/api", parkingZoneRouter);
+
     app.listen(3000);
   }
 }
