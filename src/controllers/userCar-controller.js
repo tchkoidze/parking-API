@@ -67,7 +67,7 @@ export const getUsersCars = async (req, res) => {
 };
 
 export const deleteCar = async (req, res) => {
-  const id = req.params.userId;
+  const id = req.params.carId;
 
   try {
     await pool.query("DELETE FROM usercar WHERE userId=$1", [id]);
