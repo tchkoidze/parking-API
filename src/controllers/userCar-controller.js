@@ -47,7 +47,7 @@ export const updateCar = async (req, res) => {
       [carName, registrationPlate, type, paramsCarId]
     );
 
-    return res.status(204).json({ message: "Car updated" });
+    return res.status(201).json({ message: "Car updated" });
   } catch (error) {
     return res.status(401).json(error);
   }
