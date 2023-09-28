@@ -59,3 +59,27 @@ export const updateCar = async (req, res) => {
     return res.status(401).json(error);
   }
 };
+
+export const getUserCars = async (req, res) => {
+  const id = req.params.userId;
+  try {
+    const cars = await pool.query("SELECT * FROM usercar WHERE userId=$1", [
+      id,
+    ]);
+    const rows = cars.rows;
+    return res.status(201).json({ message: "get user's all car!", rows });
+  } catch (error) {
+    return res.status(401).json(error);
+  }
+};
+
+export const deleteCar = async (req, res) => {
+  const id = req.params.userId;
+
+  try {
+    await pool.query("DELETE FROM usercar WHERE userId=$1", [id]);
+    return res.status(201).json({ message: "Car deleted!" });
+  } catch (error) {
+    return res.status(401).json(error);
+  }
+};
