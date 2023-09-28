@@ -35,12 +35,6 @@ export const updateCar = async (req, res) => {
   const { carName, registrationPlate, type } = req.body;
   const paramsCarId = req.params.carId;
   try {
-    /*const user = await pool.query("SELECT * FROM users WHERE id = $1 ", [id]);
-
-    if (user.rows.length === 0) {
-      return res.status(401).json({ message: "User can't be identified!" });
-    }*/
-
     const car = await pool.query("SELECT * FROM usercar WHERE id = $1 ", [
       paramsCarId,
     ]);
