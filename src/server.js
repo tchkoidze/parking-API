@@ -10,6 +10,7 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import userRouter from "./routes/user-rotes.js";
 import userCarRouter from "./routes/userCar-router.js";
+import parkingZoneRouter from "./routes/parkingZone-router.js";
 
 const app = express();
 
@@ -20,6 +21,7 @@ async function init() {
     await createPasswordRecoveryTable();
     await createUserCarTable();
     await createParkinZoneTable();
+    await parkingZoneRouter();
     serverStart();
   } catch (error) {
     console.log(error);

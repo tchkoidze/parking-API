@@ -13,5 +13,7 @@ export const addParkingZone = async (req, res) => {
     );
 
     return res.status(200).json({ message: "Parking zone created!" });
-  } catch (error) {}
+  } catch (error) {
+    return res.status(401).json(error);
+  }
 };
