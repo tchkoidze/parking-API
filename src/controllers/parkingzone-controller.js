@@ -54,3 +54,14 @@ export const updateParkingZone = async (req, res) => {
     return res.status(401).json(error);
   }
 };
+
+export const deleteParkingZone = async (req, res) => {
+  const id = req.params.parkinkgId;
+
+  try {
+    await pool.query("DELETE FROM parkingzones WHERE id=$1", [id]);
+    return res.status(201).json({ message: "Parking zone deleted!" });
+  } catch (error) {
+    return res.status(401).json(error);
+  }
+};

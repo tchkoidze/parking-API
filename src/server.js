@@ -21,7 +21,6 @@ async function init() {
     await createPasswordRecoveryTable();
     await createUserCarTable();
     await createParkinZoneTable();
-    await parkingZoneRouter();
     serverStart();
   } catch (error) {
     console.log(error);
@@ -32,6 +31,8 @@ async function init() {
     app.use(cors());
     app.use("/api", userRouter);
     app.use("/api", userCarRouter);
+    app.use("/api", parkingZoneRouter);
+
     app.listen(3000);
   }
 }
