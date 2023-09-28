@@ -8,6 +8,7 @@ import {
 import bodyParser from "body-parser";
 import cors from "cors";
 import userRouter from "./routes/user-rotes.js";
+import userCarRouter from "./routes/userCar-router.js";
 
 const app = express();
 
@@ -26,6 +27,7 @@ async function init() {
     app.use(bodyParser.json());
     app.use(cors());
     app.use("/api", userRouter);
+    app.use("/api", userCarRouter);
     app.listen(3000);
   }
 }

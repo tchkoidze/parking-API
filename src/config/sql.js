@@ -35,9 +35,9 @@ export const createUserCarTable = async () => {
   return await pool.query(
     `CREATE TABLE IF NOT EXISTS usercar (
       id SERIAL PRIMARY KEY,
-      user_id INT REFERENCES users(id) ON DELETE CASCADE,
-      car_name TEXT,
-      registration_plate TEXT,
+      userId INT REFERENCES users(id) ON DELETE CASCADE,
+      carName TEXT,
+      registrationPlate TEXT,
       type TEXT CHECK (type IN (
           'Sedan', 'Sports car', 'Station wagon', 'Coupe',
           'Hatchback', 'Convertible', 'Minivan', 'Pickup truck',
