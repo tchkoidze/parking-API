@@ -33,25 +33,24 @@ export const addCar = async (req, res) => {
 export const updateCar = async (req, res) => {
   //const { body } = req;
   const { carName, registrationPlate, type } = req.body;
-  const id = req.params.userId;
+  const paramsCarId = req.params.carId;
   try {
-    const user = await pool.query("SELECT * FROM users WHERE id = $1 ", [
-      paramsUserId,
-    ]);
+    /*const user = await pool.query("SELECT * FROM users WHERE id = $1 ", [id]);
 
     if (user.rows.length === 0) {
       return res.status(401).json({ message: "User can't be identified!" });
-    }
+    }*/
 
-    const car = await pool.query("SELECT * FROM usercar WHERE userId = $1 ", [
-      id,
+    const car = await pool.query("SELECT * FROM usercar WHERE id = $1 ", [
+      paramsCarId,
     ]);
     if (car.rows.length === 0) {
       return res.status(400).json({ message: "Car did'not find" });
     }
+
     await pool.query(
-      "UPDATE usercar SET  carName=$1, registrationPlate=$2, type=$3 WHERE userId = $4",
-      [carName, registrationPlate, type, id]
+      "UPDATE usercar SET  carName=$1, registrationPlate=$2, type=$3 WHERE id = $4",
+      [carName, registrationPlate, type, paramsCarId]
     );
 
     return res.status(204).json({ message: "Car updated" });
@@ -60,7 +59,7 @@ export const updateCar = async (req, res) => {
   }
 };
 
-export const getUserCars = async (req, res) => {
+export const getUsersCars = async (req, res) => {
   const id = req.params.userId;
   try {
     const cars = await pool.query("SELECT * FROM usercar WHERE userId=$1", [
