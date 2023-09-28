@@ -2,15 +2,12 @@ import Joi from "joi";
 
 const parkingZoneSchema = async () => {
   return Joi.object({
-    parkingName: Joi.string()
-      .regex(/^[A-Z]{2}-\d{3}-[A-Z]{2}$/)
-      .required()
-      .messages({
-        "string.pattern.base":
-          'Parking name must be in the format "AB-123-CD".',
-        "any.required": "Parking name is required.",
-      }),
+    parkingName: Joi.string().required().messages({
+      "string.base": "email should be a string",
+      "any.required": "Parking name is required.",
+    }),
     address: Joi.string().required().messages({
+      "string.base": "email should be a string",
       "any.required": "Address is required.",
     }),
     hourlyCost: Joi.number().precision(2).required().messages({
