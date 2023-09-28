@@ -54,7 +54,9 @@ export const createParkinZoneTable = async () => {
       id SERIAL PRIMARY KEY,
       parkingName VARCHAR(255) UNIQUE NOT NULL,
       address TEXT NOT NULL,
-      hourlyCost DECIMAL(10, 2) NOT NULL
+      hourlyCost DECIMAL(10, 2) NOT NULL,
+      booked BOOLEAN DEFAULT FALSE,
+      isUsing BOOLEAN DEFAULT FALSE
   )`
   );
 };
