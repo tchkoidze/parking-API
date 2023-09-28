@@ -6,8 +6,8 @@ export const addCar = async (req, res) => {
 
   try {
     if (!carName && !registrationPlate && !type) {
-      return res.status(200).json({
-        message: "Correct info",
+      return res.status(400).json({
+        message: "Inorrect info",
       });
     }
 
@@ -29,3 +29,5 @@ export const addCar = async (req, res) => {
     return res.status(401).json(error);
   }
 };
+
+export const updateCar = async (req, res) => {};
