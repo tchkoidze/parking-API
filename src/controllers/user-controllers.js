@@ -156,36 +156,41 @@ export const deleteUser = async (req, res) => {
 export const passwordRecovery = async (req, res) => {
   //const { email } = req.body;
   const { body } = req;
-  const validator = await passwordRecoverySchema(body);
-  const { email } = await validator.validateAsync(body);
 
-  const user = await pool.query(`SELECT * FROM users WHERE email = $1`, [
-    email,
-  ]);
-  console.log("user:", email);
-  if (user.rows.length === 0) {
+  try {
+    const validator = await passwordRecoverySchema(body);
+    const { email } = await validator.validateAsync(body);
+
+    const user = await pool.query(`SELECT * FROM users WHERE email = $1`, [
+      email,
+    ]);
+    if (user.rows.length === 0) {
+      return res
+        .status(400)
+        .json({ message: "user with this email did'not find" });
+    }
+
+    // Check if the email exists in the database
+    const recoveryToken = crypto.randomBytes(48).toString("hex");
+
+    // Store the reset token in the database along with the email
+    await pool.query(
+      "INSERT INTO passwordRecoverys(recoveryToken, email) VALUES($1, $2) ",
+      [recoveryToken, email]
+    );
+    // Log the simulated email sending
+    console.log(
+      `Simulated password reset email sent to ${email} with token: ${recoveryToken}`
+    );
+
     return res
-      .status(400)
-      .json({ message: "user with this email did'not find" });
+      .status(200)
+      .json({ message: "Password reset email sent.", recoveryToken });
+  } catch (error) {
+    return res.status(401).json(error);
   }
 
-  // Check if the email exists in the database
-  const recoveryToken = crypto.randomBytes(48).toString("hex");
-
-  // Store the reset token in the database along with the email
-  await pool.query(
-    "INSERT INTO passwordRecoverys(recoveryToken, email) VALUES($1, $2) ",
-    [recoveryToken, email]
-  );
-
-  // Log the simulated email sending
-  console.log(
-    `Simulated password reset email sent to ${email} with token: ${recoveryToken}`
-  );
-
-  return res
-    .status(200)
-    .json({ message: "Password reset email sent.", recoveryToken });
+  //console.log("user:", email);
 };
 
 // Endpoint to simulate resetting the password
