@@ -48,4 +48,15 @@ export const createUserCarTable = async () => {
   );
 };
 
+export const createParkinZoneTable = async () => {
+  return await pool.query(
+    `CREATE TABLE IF NOT EXISTS parkingzone (
+      id SERIAL PRIMARY KEY,
+      parkingName VARCHAR(255) UNIQUE NOT NULL,
+      address TEXT NOT NULL,
+      hourlyCost DECIMAL(10, 2) NOT NULL
+  )`
+  );
+};
+
 export default pool;

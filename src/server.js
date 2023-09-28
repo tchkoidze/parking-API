@@ -1,5 +1,6 @@
 import express, { request, response } from "express";
 import {
+  createParkinZoneTable,
   createPasswordRecoveryTable,
   createUserCarTable,
   createUserTable,
@@ -18,6 +19,7 @@ async function init() {
     await createVerificationsTable();
     await createPasswordRecoveryTable();
     await createUserCarTable();
+    await createParkinZoneTable();
     serverStart();
   } catch (error) {
     console.log(error);
