@@ -1,15 +1,20 @@
+import userCarSchema from "../Schemas/userCar-schema.js";
 import pool from "../config/sql.js";
 
 export const addCar = async (req, res) => {
-  const { carName, registrationPlate, type } = req.body;
+  const { body } = req;
+  //const { carName, registrationPlate, type } = req.body;
   const paramsUserId = req.params.userId;
 
   try {
-    if (!carName && !registrationPlate && !type) {
+    const validator = await userCarSchema(body);
+    const { carName, registrationPlate, type } = validator.validateAsync(body);
+
+    /*if (!carName && !registrationPlate && !type) {
       return res.status(400).json({
         message: "Inorrect info",
       });
-    }
+    }*/
 
     const user = await pool.query("SELECT * FROM users WHERE id = $1 ", [
       paramsUserId,
@@ -31,10 +36,13 @@ export const addCar = async (req, res) => {
 };
 
 export const updateCar = async (req, res) => {
-  //const { body } = req;
-  const { carName, registrationPlate, type } = req.body;
+  const { body } = req;
   const paramsCarId = req.params.carId;
+
   try {
+    const validator = await userCarSchema(body);
+    const { carName, registrationPlate, type } = validator.validateAsync(body);
+
     const car = await pool.query("SELECT * FROM usercar WHERE id = $1 ", [
       paramsCarId,
     ]);
