@@ -31,4 +31,21 @@ export const createPasswordRecoveryTable = async () => {
   );
 };
 
+export const createUserCarTable = async () => {
+  return await pool.query(
+    `CREATE TABLE IF NOT EXISTS usercar (
+      id SERIAL PRIMARY KEY,
+      user_id INT REFERENCES users(id) ON DELETE CASCADE,
+      car_name TEXT,
+      registration_plate TEXT,
+      type TEXT CHECK (type IN (
+          'Sedan', 'Sports car', 'Station wagon', 'Coupe',
+          'Hatchback', 'Convertible', 'Minivan', 'Pickup truck',
+          'Off-road vehicle', 'Luxury vehicle', 'Hybrid vehicle',
+          'Limousine', 'Pony car', 'Electric car', 'Crossover', 'Truck', 'Microcar'
+      ))
+  )`
+  );
+};
+
 export default pool;

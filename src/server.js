@@ -1,6 +1,7 @@
 import express, { request, response } from "express";
 import {
   createPasswordRecoveryTable,
+  createUserCarTable,
   createUserTable,
   createVerificationsTable,
 } from "./config/sql.js";
@@ -15,6 +16,7 @@ async function init() {
     await createUserTable();
     await createVerificationsTable();
     await createPasswordRecoveryTable();
+    await createUserCarTable();
     serverStart();
   } catch (error) {
     console.log(error);
