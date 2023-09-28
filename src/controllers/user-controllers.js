@@ -167,7 +167,7 @@ export const passwordRecovery = async (req, res) => {
     if (user.rows.length === 0) {
       return res
         .status(400)
-        .json({ message: "user with this email did'not find" });
+        .json({ message: "user with this email did't exists" });
     }
 
     // Check if the email exists in the database

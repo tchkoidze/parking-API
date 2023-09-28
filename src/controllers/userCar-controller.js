@@ -5,11 +5,11 @@ export const addCar = async (req, res) => {
   const paramsUserId = req.params.userId;
 
   try {
-    /*if (carName && registrationPlate && type) {
+    if (!carName && !registrationPlate && !type) {
       return res.status(200).json({
         message: "Correct info",
       });
-    }*/
+    }
 
     const user = await pool.query("SELECT * FROM users WHERE id = $1 ", [
       paramsUserId,
