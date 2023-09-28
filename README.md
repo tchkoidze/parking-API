@@ -109,4 +109,23 @@ Authorization: Beare eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9eyJlbWFpbCI6ImhhcmJpZWx
     "address":"nucubidze 128",
     "hourlyCost": 10.00
 
-}
+        }
+
+    8.პარკინგის დასააფდეიტებლად get და ვუთითებთ https://parking-m3z3.onrender.com/api/parkingZone,
+    რაც რესპონსად დააბრუნებს არსებულ პარკირებების მონაცემებს მათ შორის id-ს. რომელიც დაგვჭირდება კონლრეტული
+    ზონის დასააფდეიტებლად
+
+ამის შემდეგ, put და ვუთითებთ ლინკს: https://parking-m3z3.onrender.com/api/parkingZone/:parkingId,
+:parkingId მაგივრად ვუთითებთ გეთ რექუესტის შედეგად დაბრუნებულ სასურველი ზონის id-ს.
+ხოლო raw-ში ვუთითებთ :
+{
+"parkingName":"nucubidze",
+"address":"nucubidze 138",
+"hourlyCost": 10.00
+
+    }
+
+9. ზონის წაშლა
+   ამისათვის ვუთითებთ delete და ლინკს: https://parking-m3z3.onrender.com/api/parkingZone/:parkingId
+   :parkingId მაგივრად ვუთითებთ გეთ რექუესტის შედეგად დაბრუნებულ სასურველი ზონის id-ს.
+   ღილაკზე sent დაჭერით წავშლით სასურველ ზონას.
