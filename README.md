@@ -59,3 +59,54 @@ set ღილაკის დაჭერით რექვესთი გა�
 "password":"Alexandre12"
 }
 სწორი ვერიფიცირების შემთხვევაში(მეილზე გაგზავნილი token-ს დამთხვევისას) რესპონსად დააბრუნებს მესიჯს :Password updated successfully.
+
+5.ავტომობილის დამატება
+ავტომპობილის დასამატებლად ვირჩევთ post და ვუთითებთ ლინკს: https://parking-m3z3.onrender.com/api/usercar/:userId, სადაც :userId მაგივრად გადავცემთ მომხმარებლის id-ს რომელიც დაგვიბრუნდა ლოგინის რესპონსში,
+ხოლო Header-ში ვუთითებთ content-type: application/json, Accept: application/json და
+ავტორიზაციაში ვუთითებთ ტოკენს რომელიც ლოგინის რესპონსში მოგვივიდა მაგ:
+Authorization: Beare eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9eyJlbWFpbCI6ImhhcmJpZWxpQGdtYWlsLm.
+ხოლო raw-ში ვუთითებთ :
+{
+"carName":"toyota aqua",
+"registrationPlate":"AB-123-BN", ამ ფორმატში უნდა იტოს თორემ დააერორებს
+"type":"Sedan"
+
+}
+
+6.  ავტომობილის დააფდეითება
+    ავტომპობილის დასააფდეიტებლად ვირჩევთ get და ვუთითებთ https://parking-m3z3.onrender.com/api/usercars/:userId,
+    სადაც :userId მაგივრად გადავცემთ მომხმარებლის id-ს რომელიც დაგვიბრუნდა ლოგინის რესპონსში.
+    რესპონსში ეს დაგვიბრეუნებს ყველა მანქანას თავისი მონაცემებით(მათშორის მანქანის აიდს) რომელიც გააჩნია კონკრეტულ მომხმარებელს.
+    ამის შემდეგ,
+    put და ვუთითებთ ლინკს: https://parking-m3z3.onrender.com/api/usercar/:carId, სადაც :carId მაგივრად გადავცემთ ავტომობილის id-ს რომელიც დაგვიბრუნდა get getUsersCars რექვესთით,
+    ხოლო Header-ში ვუთითებთ content-type: application/json, Accept: application/json და
+    ავტორიზაციაში ვუთითებთ ტოკენს რომელიც ლოგინის რესპონსში მოგვივიდა მაგ:
+    Authorization: Beare eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9eyJlbWFpbCI6ImhhcmJpZWxpQGdtYWlsLm.
+    ხოლო raw-ში ვუთითებთ :
+    {
+    "carName":"toyota corola",
+    "registrationPlate":"AB-127-BN", ამ ფორმატში უნდა იტოს თორემ დააერორებს
+    "type":"Sedan"
+
+    } დააფდეითებისას სამივე მონაცემი ახლლიდან შეგვყავს.
+
+        ავტომობილის ტიბი უნდა ემტხვეოდეს: (
+              'Sedan', 'Sports car', 'Station wagon', 'Coupe',
+              'Hatchback', 'Convertible', 'Minivan', 'Pickup truck',
+              'Off-road vehicle', 'Luxury vehicle', 'Hybrid vehicle',
+              'Limousine', 'Pony car', 'Electric car', 'Crossover', 'Truck', 'Microcar'
+          )
+
+    7.ავტომობილის წაშლა
+    ავტომპობილის წასაშლელად ვირჩევთ delete და ვუთითებთ ლინკს: https://parking-m3z3.onrender.com/api/usercar/:carId, სადაც
+    :carId მაგივრად გადავცემთ ავტომობილის id-ს რომელიც დაგვიბრუნდა get getUsersCars რექვესთით,
+    ღილაკზე send დაჭერით წავშლით კონკრეტულ ავტომობილის.
+
+7.  პარკინგის შესაქმნელად post და ვუთითებთ https://parking-m3z3.onrender.com/api/parkingZone,
+    ხოლო raw-ში ვუთითებთ :
+    {
+    "parkingName":"nucubidze",
+    "address":"nucubidze 128",
+    "hourlyCost": 10.00
+
+}
