@@ -5,7 +5,9 @@ export const addParkingZone = async (req, res) => {
   const { body } = req;
   try {
     const validator = await parkingZoneSchema(body);
-    const { parkingName, address, hourlyCost } = validator.validateAsync(body);
+    const { parkingName, address, hourlyCost } = await validator.validateAsync(
+      body
+    );
 
     await pool.query(
       "INSERT INTO parkingzones(parkingName, address, hourlyCost) VALUES ($1, $2, $3)",
@@ -33,7 +35,9 @@ export const updateParkingZone = async (req, res) => {
   const paramsparkingZone = req.params.parkingId;
   try {
     const validator = await parkingZoneSchema(body);
-    const { parkingName, address, hourlyCost } = validator.validateAsync(body);
+    const { parkingName, address, hourlyCost } = await validator.validateAsync(
+      body
+    );
 
     const parkingZone = await pool.query(
       "SELECT * FROM parkingzones WHERE id = $1 ",
