@@ -8,7 +8,9 @@ export const addCar = async (req, res) => {
 
   try {
     const validator = await userCarSchema(body);
-    const { carName, registrationPlate, type } = validator.validateAsync(body);
+    const { carName, registrationPlate, type } = await validator.validateAsync(
+      body
+    );
 
     /*if (!carName && !registrationPlate && !type) {
       return res.status(400).json({
@@ -41,7 +43,9 @@ export const updateCar = async (req, res) => {
 
   try {
     const validator = await userCarSchema(body);
-    const { carName, registrationPlate, type } = validator.validateAsync(body);
+    const { carName, registrationPlate, type } = await validator.validateAsync(
+      body
+    );
 
     const car = await pool.query("SELECT * FROM usercar WHERE id = $1 ", [
       paramsCarId,
